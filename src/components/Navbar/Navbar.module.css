@@ -1,0 +1,21 @@
+.nav {
+    grid-area: navigation;
+    padding: 10px;
+
+}
+
+.nav a {
+    text-decoration: none;
+}
+
+.nav a.active {
+    color: rgb(255, 255, 255);
+}
+
+.nav a:hover {
+    font-size: 1.2em;
+}
+
+.settings {
+    margin-top: 20px;
+}
