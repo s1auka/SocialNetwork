@@ -1,24 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import navStyle from './Navbar.module.css';
 
-const Navbar = () => {
+const Navbar = (props) => {
+    let componentsURLs = props.urls.map(el => {
+        return (
+            <div>
+                <NavLink to={'/' + el} activeClassName={navStyle.active}>{el[0].toUpperCase() + el.slice(1)}</NavLink>
+            </div>
+        )
+    })
+
     return (
         <nav className={navStyle.nav}>
-            <div className="nav__">
-                <NavLink to="/profile" activeClassName={navStyle.active}>Profile</NavLink>
-            </div>
-            <div className="nav__">
-                <NavLink to='/dialogs' activeClassName={navStyle.active}>Messages</NavLink>
-            </div>
-            <div className="">
-                <NavLink to='/news' activeClassName={navStyle.active}>News</NavLink>
-            </div>
-            <div className="">
-                <a>Music</a>
-            </div>
-            <div className={navStyle.settings}>
-                <a>Settings</a>
-            </div>
+            {componentsURLs}
         </nav>
     )
 }

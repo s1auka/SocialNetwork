@@ -16,6 +16,6 @@
     font-size: 1.2em;
 }
 
-.settings {
+nav *:last-child {
     margin-top: 20px;
 }
