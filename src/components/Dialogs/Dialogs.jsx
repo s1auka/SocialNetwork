@@ -1,6 +1,7 @@
 import DialogItem from './DialogItem/DialogItem';
 import DialogMessage from './DialogMessage/DialogMessage';
 import cStyle from './Dialogs.module.css'
+import NewMessage from './NewMessage/NewMessage';
 
 const Dialogs = (props) => {
     let dialogComponentsItems = props.dialogsState.dialogItems.map(el => {
@@ -23,6 +24,7 @@ const Dialogs = (props) => {
             </div>
             <div>
                 {dialogComponentsMessages}
+                <NewMessage />
             </div>
         </div>
     )

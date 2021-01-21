@@ -1,3 +1,4 @@
+import React from 'react';
 import componentStyle from './MyPosts.module.css';
 import OldPost from './OldPost/OldPost';
 
@@ -9,13 +10,23 @@ const MyPosts = (props) => {
         );
     })
 
+    let newPostEl = React.createRef();
+
+    let addPost = () => {
+        let text = newPostEl.current.value;
+        props.addPost(text);
+        newPostEl.current.value = '';
+    }
+
+    let updateNewPost = () => {
+        props.updateNewPost(newPostEl.current.value);
+    }
+
     return (
         <div className={componentStyle.posts}>
             <h3>My Posts</h3>
-            <form action="">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-                <button>Add post</button>
-            </form>
+            <textarea ref={newPostEl} onChange={updateNewPost} value={props.newPostText}></textarea>
+            <button onClick={addPost}>Add post</button>
             {oldMessagesComponents}
         </div>
     )

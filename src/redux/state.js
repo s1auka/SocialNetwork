@@ -1,3 +1,5 @@
+import renderEntireTree from "../render";
+
 let dialogItems = [
     { name: 'Igor', id: 1 },
     { name: 'Eugene', id: 2 },
@@ -23,7 +25,23 @@ let state = {
         dialogItems: dialogItems,
         dialogMessages: dialogMessages,
     },
-    oldMessages: oldMessages,
+    profileInfo: {
+        oldMessages: oldMessages,
+        newPostMessage: 'bbb',
+    }
+}
+
+export let addPost = (messageToPost) => {
+    let newOldMessage = messageToPost;
+
+    oldMessages.push(newOldMessage);
+    renderEntireTree(state);
+}
+
+export let updateNewPostText = (messageToUpdate) => {
+    state.profileInfo.newPostMessage = messageToUpdate;
+    //debugger;
+    renderEntireTree(state);
 }
 
 export default state;
