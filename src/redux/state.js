@@ -27,14 +27,13 @@ let state = {
     },
     profileInfo: {
         oldMessages: oldMessages,
-        newPostMessage: 'bbb',
+        newPostMessage: '',
     }
 }
 
-export let addPost = (messageToPost) => {
-    let newOldMessage = messageToPost;
-
-    oldMessages.push(newOldMessage);
+export let addPost = () => {
+    oldMessages.push(state.profileInfo.newPostMessage);
+    state.profileInfo.newPostMessage = '';
     renderEntireTree(state);
 }
 
