@@ -1,7 +1,16 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) => {
+const initialState = {
+    oldMessages: [
+        "Lorem Ipsum is simply dummy text of the printing",
+        "and typesetting industry. Lorem Ipsum has been the industry's standard",
+        "dummy text ever since the 1500s, when an unknown printer took a galley",
+    ],
+    newPostMessage: '',
+}
+
+const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
