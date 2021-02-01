@@ -24,7 +24,7 @@ const Dialogs = (props) => {
             </div>
             <div>
                 {dialogComponentsMessages}
-                <NewMessage />
+                <NewMessage dispatch={props.dispatch} newDialogMessage={props.dialogsState.newDialogMessage} />
             </div>
         </div>
     )
