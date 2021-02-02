@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
@@ -12,14 +12,14 @@ let menuURLs = ['profile', 'dialogs', 'news', 'music', 'settings'];
 
 
 
-const App = (props) => {
+const App = () => {
     return (
         < div className="grid-container" >
             <Header />
             <Navbar urls={menuURLs} />
             <div className='content'>
-                <Route path='/profile' render={() => <Profile profileState={props.state.profileInfo} dispatch={props.dispatch} />} />
-                <Route path='/dialogs' render={() => <Dialogs dialogsState={props.state.dialogsInfo} dispatch={props.dispatch} />} />
+                <Route path='/profile' render={() => <Profile />} />
+                <Route path='/dialogs' render={() => <DialogsContainer />} />
                 <Route path='/news' component={News} />
                 <Route path='/music' component={Music} />
                 <Route path='/settings' component={Settings} />

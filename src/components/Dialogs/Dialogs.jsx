@@ -4,6 +4,7 @@ import cStyle from './Dialogs.module.css'
 import NewMessage from './NewMessage/NewMessage';
 
 const Dialogs = (props) => {
+    debugger
     let dialogComponentsItems = props.dialogsState.dialogItems.map(el => {
         return (
             <DialogItem name={el.name} id={el.id} />
@@ -24,7 +25,7 @@ const Dialogs = (props) => {
             </div>
             <div>
                 {dialogComponentsMessages}
-                <NewMessage dispatch={props.dispatch} newDialogMessage={props.dialogsState.newDialogMessage} />
+                <NewMessage addMessage={props.addNewMessage} updateMessage={props.updateMessage} newDialogMessage={props.dialogsState.newDialogMessage} />
             </div>
         </div>
     )
