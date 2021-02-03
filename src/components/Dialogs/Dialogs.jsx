@@ -4,7 +4,7 @@ import cStyle from './Dialogs.module.css'
 import NewMessage from './NewMessage/NewMessage';
 
 const Dialogs = (props) => {
-    debugger
+
     let dialogComponentsItems = props.dialogsState.dialogItems.map(el => {
         return (
             <DialogItem name={el.name} id={el.id} />

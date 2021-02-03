@@ -2,32 +2,12 @@ import { addPostActionCreator, updateNewPostActionCreator } from '../../../redux
 import { connect } from 'react-redux';
 import MyPosts from './MyPosts';
 
-
-
-/* const MyPostsContainer = (props) => {
-
-    let addPost = () => {
-        let action = addPostActionCreator();
-        props.dispatch(action);
-    }
-
-    let updateNewPost = (text) => {
-        let action = updateNewPostActionCreator(text)
-        props.dispatch(action);
-    }
-
-    return (
-        <MyPosts addPost={addPost} updateNewPost={updateNewPost} newPostText={props.newPostText} oldMessages={props.contentMessages} />
-    )
-}
- */
-
 let mapStateToProps = (state) => {
-    debugger
     return {
-        newPostText: state.profileInfo.newPostText,
         oldMessages: state.profileInfo.oldMessages,
+        newPostText: state.profileInfo.newPostMessage,
     }
+
 }
 
 
