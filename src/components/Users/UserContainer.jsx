@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { toggleFollowActionCreator } from "../../redux/user-reducer";
+import { setUsersAC, toggleFollowActionCreator } from "../../redux/user-reducer";
 import User from "./User";
 
 let mapStateToProps = (state) => {
@@ -13,6 +13,10 @@ let mapDispatchToProps = (dispatch) => {
             let action = toggleFollowActionCreator(userId);
             dispatch(action);
         },
+        addUsers: (users) => {
+            let action = setUsersAC(users);
+            dispatch(action);
+        }
     }
 }
 
