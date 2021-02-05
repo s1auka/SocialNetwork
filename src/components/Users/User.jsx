@@ -1,39 +1,52 @@
-//import React from 'react';
+import React from 'react';
+import axios from "axios";
+import defaultImage from "../../assets/images/default-logo.png";
+import styles from "./User.module.css";
 
-const User = (props) => {
-    debugger
-    if (props.users.length === 0) {
-        let initialUsers = [
-            { id: 1, followed: true, fullName: "John D.", location: { city: 'Boston', country: "USA" } },
-            { id: 2, followed: false, fullName: "Tomas M.", location: { city: 'Munich', country: "Germany" } },
-            { id: 3, followed: true, fullName: "Gianluca Z.", location: { city: 'Turin', country: "Italy" } },
-        ];
-        props.addUsers(initialUsers);
+class User extends React.Component {
+
+    getUsers = () => {
+        if (this.props.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com//api/1.0/users", { params: { page: 921 } })
+                .then(response => {
+                    this.props.addUsers(response.data.items);
+                })
+
+        }
     }
 
+    usersToJSX = () => {
+        let users = this.props.users.map(el => {
+            return (
+                <div className={styles.userBlock}>
+                    <img src={el.photos.small || defaultImage} alt="logo" />
+                    <button data-userid={el.id} onClick={this.toggleFollow}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                    <span> {el.name} </span>
+                    <span> "el.location.city-el.location.country" </span>
+                </div >
+            )
+        });
 
-    let toggleFollow = (e) => {
+        return users;
+    }
+
+    toggleFollow = (e) => {
         let userId = e.target.dataset.userid;
 
-        props.onToggleFollow(userId);
+        this.props.onToggleFollow(userId);
     }
-    let users = props.users.map(el => {
 
+
+    render() {
         return (
             <div>
-                <button data-userid={el.id} onClick={toggleFollow}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
-                <span> {el.fullName} </span>
-                <span> {el.location.city}-{el.location.country} </span>
-            </div >
+                <button onClick={this.getUsers}>Get Users</button>
+                <h2>USERS</h2>
+                {this.usersToJSX()}
+            </div>
         )
-    })
-
-    return (
-        <div>
-            <h2>USERS</h2>
-            {users}
-        </div>
-    )
+    }
 }
+
 
 export default User;
