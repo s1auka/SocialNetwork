@@ -1,0 +1,12 @@
+img {
+    width: 30px;
+}
+
+.userBlock {
+    margin-bottom: 20px;
+}
+
+.selectedPage {
+    background-color: black;
+    color: white;
+}

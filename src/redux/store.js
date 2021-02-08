@@ -41,7 +41,6 @@ let store = {
 
 
     dispatch(action) {
-        debugger;
         this.getState().profileInfo = profileReducer(this.getState().profileInfo, action);
         this.getState().dialogsInfo = dialogReducer(this.getState().dialogsInfo, action);
 
