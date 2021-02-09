@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import defaultImage from "../../assets/images/default-logo.png";
 import styles from "./Users.module.css";
 
@@ -8,7 +9,9 @@ const Users = (props) => {
         let users = props.users.map(el => {
             return (
                 <div className={styles.userBlock}>
-                    <img src={el.photos.small || defaultImage} alt="logo" />
+                    <NavLink to={'/profile/'+el.id}>
+                        <img src={el.photos.small || defaultImage} alt="logo" />
+                    </NavLink>
                     <button data-userid={el.id} onClick={props.toggleFollow}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     <span> {el.name} </span>
                     <span> "el.location.city-el.location.country" </span>
@@ -28,7 +31,7 @@ const Users = (props) => {
     return (
         <div>
             <h2>USERS</h2>
-            <div>
+            <div className={styles.pagination}>
                 {pages.map(p => {
                     return <span className={props.currentPage === p && styles.selectedPage} onClick={(e) => { props.onPageChanged(p) }}>{p}</span>
                 })

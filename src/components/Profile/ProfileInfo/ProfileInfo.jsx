@@ -1,19 +1,21 @@
 import profileStyle from './ProfileInfo.module.css';
+import defaultImage from "../../../assets/images/default-logo.png";
+import Preloader from '../../common/Preloader/Preloader';
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if(!props.userProfile){
+        return <Preloader/>
+    }
     return (
         <div>
             <div>
                 <img className={profileStyle.layout} src="https://media.ekosport.fr/INTERSHOP/static/WFS/EKO-EU-Site/-/EKO/en_EU/Medias/images_espace_marque_1402x250px/ambiance_picture19.jpg" alt='' />
             </div>
             <div className={profileStyle.person}>
-                <img className={profileStyle.foto} src="https://www.logodesign.net/logo/line-camera-square-with-shadow-4506ld.png" alt='' />
+                <img className={profileStyle.foto} src={props.userProfile.photos.small || defaultImage} alt='' />
                 <div className="content__info">
-                    <div>Name Surname</div>
-                    <div>About me</div>
-                    <div>About me</div>
-                    <div>About me</div>
-                    <div>About me</div>
+                    <div>{props.userProfile.fullName}</div>
+                    <div>{props.userProfile.aboutMe}</div>
                 </div>
             </div>
         </div>

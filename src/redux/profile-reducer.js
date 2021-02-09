@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
     oldMessages: [
@@ -8,6 +9,7 @@ const initialState = {
         "dummy text ever since the 1500s, when an unknown printer took a galley",
     ],
     newPostMessage: '',
+    userProfile: null,
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -26,7 +28,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 newPostMessage: action.newText,
             }
-
+            case SET_USER_PROFILE:
+                return {
+                    ...state,
+                    userProfile: {...action.userProfile},
+                }
         default:
             break;
     }
@@ -36,5 +42,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
 export const updateNewPostActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text, });
+export const setUserProfileAC = (userProfile) => ({ type: SET_USER_PROFILE, userProfile });
 
 export default profileReducer;

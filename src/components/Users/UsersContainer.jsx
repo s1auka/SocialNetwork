@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import { connect } from "react-redux";
-import { setCurrentPageAC, setUsersAC, setUsersAmountAC, toggleIsFetchingAC, toggleFollowActionCreator } from "../../redux/user-reducer";
+import { setCurrentPage, setUsersAC, setUsersAmountAC, toggleIsFetching, toggleFollowActionCreator } from "../../redux/user-reducer";
 import Users from "./Users";
 import Preloader from '../common/Preloader/Preloader';
 
@@ -62,7 +62,8 @@ let mapStateToProps = (state) => {
         isFetching: state.usersInfo.isFetching,
     }
 }
-let mapDispatchToProps = (dispatch) => {
+
+/* let mapDispatchToProps = (dispatch) => {
     return {
         onToggleFollow: (userId) => {
             let action = toggleFollowActionCreator(userId);
@@ -85,6 +86,12 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(action);
         }
     }
-}
+} */
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    onToggleFollow: toggleFollowActionCreator,
+    addUsers: setUsersAC,
+    setTotalCount: setUsersAmountAC,
+    toggleIsFetching,
+    setCurrentPage,
+})(UsersContainer);
