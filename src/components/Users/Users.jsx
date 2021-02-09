@@ -9,10 +9,10 @@ const Users = (props) => {
         let users = props.users.map(el => {
             return (
                 <div className={styles.userBlock}>
-                    <NavLink to={'/profile/'+el.id}>
+                    <NavLink to={'/profile/' + el.id}>
                         <img src={el.photos.small || defaultImage} alt="logo" />
                     </NavLink>
-                    <button data-userid={el.id} onClick={props.toggleFollow}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                    <button data-userid={el.id} onClick={(e) => { props.toggleFollow(el.id, el.followed) }}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     <span> {el.name} </span>
                     <span> "el.location.city-el.location.country" </span>
                 </div >

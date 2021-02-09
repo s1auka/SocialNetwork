@@ -9,7 +9,12 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios.get("https://social-network.samuraijs.com//api/1.0/users", { params: { page: this.props.currentPage, count: this.props.usersOnPage } })
+        axios.get("https://social-network.samuraijs.com//api/1.0/users", {
+            params: {
+                page: this.props.currentPage, count: this.props.usersOnPage
+            },
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.addUsers(response.data.items);
                 this.props.setTotalCount(response.data.totalCount);
@@ -17,17 +22,49 @@ class UsersContainer extends React.Component {
             })
     }
 
-    toggleFollow = (e) => {
-        let userId = e.target.dataset.userid;
+    toggleFollow = (id, isFollow) => {
 
-        this.props.onToggleFollow(userId);
+        if (!isFollow) {
+            axios.post("https://social-network.samuraijs.com//api/1.0/follow/" + id, {}, {
+                withCredentials: true,
+                headers: {
+                    "API-KEY": "aea2f3f0-bccb-4d40-b4d3-b82ab30e1c09",
+                },
+            })
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        this.props.onToggleFollow(id);
+                    }
+
+                })
+        } else {
+            axios.delete("https://social-network.samuraijs.com//api/1.0/follow/" + id, {
+                withCredentials: true,
+                headers: {
+                    "API-KEY": "aea2f3f0-bccb-4d40-b4d3-b82ab30e1c09",
+                },
+            })
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        this.props.onToggleFollow(id);
+                    }
+
+                })
+        }
     }
 
     onPageChanged = (page) => {
         this.props.toggleIsFetching(true);
         this.props.setCurrentPage(page);
 
-        axios.get("https://social-network.samuraijs.com//api/1.0/users", { params: { page: page, count: this.props.usersOnPage } })
+        axios.get("https://social-network.samuraijs.com//api/1.0/users", {
+            params: {
+                page: page,
+                count: this.props.usersOnPage,
+            },
+            withCredentials: true,
+
+        })
             .then(response => {
                 this.props.addUsers(response.data.items);
                 this.props.toggleIsFetching(false);
@@ -62,31 +99,6 @@ let mapStateToProps = (state) => {
         isFetching: state.usersInfo.isFetching,
     }
 }
-
-/* let mapDispatchToProps = (dispatch) => {
-    return {
-        onToggleFollow: (userId) => {
-            let action = toggleFollowActionCreator(userId);
-            dispatch(action);
-        },
-        addUsers: (users) => {
-            let action = setUsersAC(users);
-            dispatch(action);
-        },
-        setCurrentPage: (currentPage) => {
-            let action = setCurrentPageAC(currentPage);
-            dispatch(action);
-        },
-        setTotalCount: (totalCount) => {
-            let action = setUsersAmountAC(totalCount);
-            dispatch(action);
-        },
-        toggleIsFetching: (isFetching) => {
-            let action = toggleIsFetchingAC(isFetching);
-            dispatch(action);
-        }
-    }
-} */
 
 export default connect(mapStateToProps, {
     onToggleFollow: toggleFollowActionCreator,
