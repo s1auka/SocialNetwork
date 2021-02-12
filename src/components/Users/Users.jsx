@@ -4,7 +4,6 @@ import defaultImage from "../../assets/images/default-logo.png";
 import styles from "./Users.module.css";
 
 const Users = (props) => {
-
     let _usersToJSX = () => {
         let users = props.users.map(el => {
             return (
@@ -12,7 +11,7 @@ const Users = (props) => {
                     <NavLink to={'/profile/' + el.id}>
                         <img src={el.photos.small || defaultImage} alt="logo" />
                     </NavLink>
-                    <button data-userid={el.id} onClick={(e) => { props.toggleFollow(el.id, el.followed) }}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                    <button data-userid={el.id} disabled={props.followingInProgress.includes(el.id)} onClick={(e) => { props.toggleFollow(el.id, el.followed) }}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     <span> {el.name} </span>
                     <span> "el.location.city-el.location.country" </span>
                 </div >
