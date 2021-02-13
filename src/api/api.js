@@ -16,10 +16,9 @@ export const userAPI = {
         return instance.delete("follow/" + id).then(response => response.data);
     },
     getProfile: (userId) => {
-        return axios.get("profile/" + userId).then(response => response.data);
+        return instance.get("profile/" + userId).then(response => response.data);
     },
     getUsers: (page, count) => {
-
         return instance.get("users", {
             params: {
                 page: page,
@@ -28,4 +27,11 @@ export const userAPI = {
 
         }).then(response => response.data)
     },
+}
+
+export const authAPI = {
+    me: () => {
+        return instance.get("auth/me")
+            .then(response => response.data)
+    }
 }

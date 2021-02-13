@@ -1,3 +1,4 @@
+import { Redirect } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import DialogMessage from './DialogMessage/DialogMessage';
 import cStyle from './Dialogs.module.css'
@@ -16,15 +17,19 @@ const Dialogs = (props) => {
         );
     })
 
+    if (!props.isAuth) return <Redirect to='/auth/login' />
+
     return (
-        <div className={cStyle.dialogGrid}>
-            <div>
-                <div>Dialogs</div>
-                {dialogComponentsItems}
-            </div>
-            <div>
-                {dialogComponentsMessages}
-                <NewMessage addMessage={props.addNewMessage} updateMessage={props.updateMessage} newDialogMessage={props.dialogsState.newDialogMessage} />
+        <div>
+            <div className={cStyle.dialogGrid}>
+                <div>
+                    <div>Dialogs</div>
+                    {dialogComponentsItems}
+                </div>
+                <div>
+                    {dialogComponentsMessages}
+                    <NewMessage addMessage={props.addNewMessage} updateMessage={props.updateMessage} newDialogMessage={props.dialogsState.newDialogMessage} />
+                </div>
             </div>
         </div>
     )

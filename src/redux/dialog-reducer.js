@@ -21,6 +21,9 @@ const dialogReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_MESSAGE:
+            if (!state.newDialogMessage) {
+                break;
+            }
             return {
                 ...state,
                 dialogMessages: [...state.dialogMessages, { message: state.newDialogMessage, id: 5 }],
