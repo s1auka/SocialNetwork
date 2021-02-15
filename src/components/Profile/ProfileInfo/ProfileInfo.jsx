@@ -1,10 +1,11 @@
 import profileStyle from './ProfileInfo.module.css';
 import defaultImage from "../../../assets/images/default-logo.png";
 import Preloader from '../../common/Preloader/Preloader';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
-    if(!props.userProfile){
-        return <Preloader/>
+    if (!props.userProfile) {
+        return <Preloader />
     }
     return (
         <div>
@@ -15,7 +16,8 @@ const ProfileInfo = (props) => {
                 <img className={profileStyle.foto} src={props.userProfile.photos.small || defaultImage} alt='' />
                 <div className="content__info">
                     <div>{props.userProfile.fullName}</div>
-                    <div>{props.userProfile.aboutMe}</div>
+                    <ProfileStatus status={props.userProfile.aboutMe} />
+
                 </div>
             </div>
         </div>

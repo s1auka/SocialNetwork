@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import DialogMessage from './DialogMessage/DialogMessage';
 import cStyle from './Dialogs.module.css'
@@ -16,8 +15,6 @@ const Dialogs = (props) => {
             <DialogMessage message={el.message} id={el.id} />
         );
     })
-
-    if (!props.isAuth) return <Redirect to='/auth/login' />
 
     return (
         <div>
