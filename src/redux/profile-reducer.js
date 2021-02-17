@@ -1,7 +1,6 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 
@@ -11,7 +10,6 @@ const initialState = {
         "and typesetting industry. Lorem Ipsum has been the industry's standard",
         "dummy text ever since the 1500s, when an unknown printer took a galley",
     ],
-    newPostMessage: '',
     userProfile: null,
     status: "",
 }
@@ -20,24 +18,17 @@ const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
-            if (!state.newPostMessage) {
+            if (!action.message) {
                 break;
             }
             return {
                 ...state,
-                oldMessages: [...state.oldMessages, state.newPostMessage],
-                newPostMessage: "",
-
+                oldMessages: [...state.oldMessages, action.message],
             }
         case SET_STATUS:
             return {
                 ...state,
                 status: action.status,
-            }
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostMessage: action.newText,
             }
         case SET_USER_PROFILE:
             return {
@@ -51,8 +42,7 @@ const profileReducer = (state = initialState, action) => {
     return state;
 }
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text, });
+export const addPost = (message) => ({ type: ADD_POST, message });
 export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userProfile });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 

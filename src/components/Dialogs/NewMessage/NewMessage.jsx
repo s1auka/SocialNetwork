@@ -1,21 +1,15 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
 const NewMessage = (props) => {
-    let addMessage = () => {
-        props.addMessage();
-    }
-
-    let updateMessage = (e) => {
-        let text = e.target.value;
-        props.updateMessage(text);
-    }
-
     return (
-        <div>
-            <textarea onChange={updateMessage} value={props.newDialogMessage}></textarea>
-            <button onClick={addMessage}>sent</button>
-        </div>
+        <form onSubmit={props.handleSubmit}>
+            <Field component="textarea" name="textarea" />
+            <button>sent</button>
+        </form>
     )
 }
 
-export default NewMessage;
+const NewMessageForm = reduxForm({ form: "newMessage" })(NewMessage);
+
+export default NewMessageForm;

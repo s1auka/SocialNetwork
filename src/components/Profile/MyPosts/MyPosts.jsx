@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
 import componentStyle from './MyPosts.module.css';
 import OldPost from './OldPost/OldPost';
@@ -12,25 +13,28 @@ const MyPosts = (props) => {
         );
     })
 
-
-    let onAddPost = () => {
-        props.addPost();
-    }
-
-    let updateNewPost = (e) => {
-        let text = e.target.value;
-
-        props.updateNewPost(text);
+    let onNewPostSubmit = (formData) => {
+        props.addPost(formData.textarea);
     }
 
     return (
         <div className={componentStyle.posts}>
             <h3>My Posts</h3>
-            <textarea onChange={updateNewPost} value={props.newPostText}></textarea>
-            <button onClick={onAddPost}>Add post</button>
+            <NewPostForm onSubmit={onNewPostSubmit} />
             {oldMessagesComponents}
         </div>
     )
 }
+
+const NewPost = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component="textarea" name="textarea" />
+            <button>Add post</button>
+        </form>
+    )
+}
+
+const NewPostForm = reduxForm({ form: "newPostForm" })(NewPost);
 
 export default MyPosts;

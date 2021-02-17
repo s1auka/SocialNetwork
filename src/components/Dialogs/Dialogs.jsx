@@ -1,7 +1,7 @@
 import DialogItem from './DialogItem/DialogItem';
 import DialogMessage from './DialogMessage/DialogMessage';
 import cStyle from './Dialogs.module.css'
-import NewMessage from './NewMessage/NewMessage';
+import NewMessageForm from './NewMessage/NewMessage';
 
 const Dialogs = (props) => {
     let dialogComponentsItems = props.dialogsState.dialogItems.map(el => {
@@ -16,6 +16,10 @@ const Dialogs = (props) => {
         );
     })
 
+    let onNewMessageSubmit = (formData) => {
+        props.addNewMessage(formData.textarea);
+    }
+
     return (
         <div>
             <div className={cStyle.dialogGrid}>
@@ -25,7 +29,7 @@ const Dialogs = (props) => {
                 </div>
                 <div>
                     {dialogComponentsMessages}
-                    <NewMessage addMessage={props.addNewMessage} updateMessage={props.updateMessage} newDialogMessage={props.dialogsState.newDialogMessage} />
+                    <NewMessageForm onSubmit={onNewMessageSubmit} />
                 </div>
             </div>
         </div>
