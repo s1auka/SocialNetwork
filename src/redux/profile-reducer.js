@@ -18,9 +18,6 @@ const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
-            if (!action.message) {
-                break;
-            }
             return {
                 ...state,
                 oldMessages: [...state.oldMessages, action.message],
@@ -47,9 +44,6 @@ export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userPr
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getProfile = (id) => (dispatch) => {
-    if (!id) {
-        id = 14677;
-    }
     profileAPI.getProfile(id)
         .then(data => {
             dispatch(setUserProfile(data));

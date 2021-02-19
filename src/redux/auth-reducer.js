@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 // const TOGGLE_IS_AUTH = "TOGGLE_IS_AUTH";
@@ -17,7 +18,6 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isAuth: true,
             }
 
         /* case TOGGLE_IS_AUTH:
@@ -30,14 +30,36 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthInfo = (email, id, login) => ({ type: SET_AUTH_INFO, data: { email, id, login } });
+export const setAuthInfo = (email, id, login, isAuth) => ({ type: SET_AUTH_INFO, data: { email, id, login, isAuth } });
 
 export const getAuth = () => (dispatch) => {
     authAPI.me()
         .then(data => {
             if (data.resultCode === 0) {
                 let { email, id, login } = data.data;
-                dispatch(setAuthInfo(email, id, login));
+                dispatch(setAuthInfo(email, id, login, true));
+            }
+        })
+}
+
+export const login = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(getAuth());
+            } else {
+                let message = data.messages.length ? data.messages[0] : "some error";
+                let action = stopSubmit("login", { _error: message });
+                dispatch(action);
+            }
+        })
+}
+
+export const logout = () => (dispatch) => {
+    authAPI.logout()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthInfo(null, null, null, false));
             }
         })
 }

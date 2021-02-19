@@ -1,10 +1,14 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { maxLength, required } from '../../../utils/validators/validators';
+import { editableField } from '../../common/formFields/formFields';
 
 import componentStyle from './MyPosts.module.css';
 import OldPost from './OldPost/OldPost';
 
+const POST_MAX_LENGTH = 30;
 
+let maxLengthValidator = maxLength(POST_MAX_LENGTH);
 
 const MyPosts = (props) => {
     let oldMessagesComponents = props.oldMessages.map(el => {
@@ -29,7 +33,7 @@ const MyPosts = (props) => {
 const NewPost = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component="textarea" name="textarea" />
+            <Field component={editableField} el="textarea" name="textarea" validate={[required, maxLengthValidator]} />
             <button>Add post</button>
         </form>
     )
