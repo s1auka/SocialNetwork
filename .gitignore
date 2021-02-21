@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 response-example.json
+
+/src/api-key.js
