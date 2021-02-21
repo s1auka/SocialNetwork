@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import navStyle from './Navbar.module.css';
 
@@ -17,4 +18,8 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+    urls: state.navBar.menuURLs,
+});
+
+export default connect(mapStateToProps, {})(Navbar);
