@@ -1,7 +1,7 @@
 import profileStyle from './ProfileInfo.module.css';
 import defaultImage from "../../../assets/images/default-logo.png";
 import Preloader from '../../common/Preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
     if (!props.userProfile) {
@@ -16,7 +16,7 @@ const ProfileInfo = (props) => {
                 <img className={profileStyle.foto} src={props.userProfile.photos.small || defaultImage} alt='' />
                 <div className="content__info">
                     <div>{props.userProfile.fullName}</div>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
                     <div>{props.userProfile.aboutMe}</div>
 
                 </div>

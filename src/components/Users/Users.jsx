@@ -5,9 +5,9 @@ import styles from "./Users.module.css";
 
 const Users = (props) => {
     let _usersToJSX = () => {
-        let users = props.users.map(el => {
+        let users = props.users.map((el, index) => {
             return (
-                <div className={styles.userBlock}>
+                <div key={index.toString()} className={styles.userBlock}>
                     <NavLink to={'/profile/' + el.id}>
                         <img src={el.photos.small || defaultImage} alt="logo" />
                     </NavLink>
@@ -31,8 +31,8 @@ const Users = (props) => {
         <div>
             <h2>USERS</h2>
             <div className={styles.pagination}>
-                {pages.map(p => {
-                    return <span className={props.currentPage === p && styles.selectedPage} onClick={(e) => { props.onPageChanged(p) }}>{p}</span>
+                {pages.map((p, index) => {
+                    return <span key={index.toString()} className={(props.currentPage === p) ? styles.selectedPage : undefined} onClick={(e) => { props.onPageChanged(p) }}>{p}</span>
                 })
                 }
             </div>

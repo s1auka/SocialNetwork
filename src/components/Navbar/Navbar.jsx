@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import navStyle from './Navbar.module.css';
 
 const Navbar = (props) => {
-    let componentsURLs = props.urls.map(el => {
+    let componentsURLs = props.urls.map((el, index) => {
         return (
-            <div>
+            <div key={index.toString()}>
                 <NavLink to={'/' + el} activeClassName={navStyle.active}>{el[0].toUpperCase() + el.slice(1)}</NavLink>
             </div>
         )
