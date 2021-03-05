@@ -23,3 +23,7 @@ export const checkIsFetching = (state) => {
 export const followingInProgressStatus = (state) => {
     return state.usersInfo.followingInProgress;
 }
+
+export const checkAuth = (state) => {
+    return state.auth.isAuth;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import defaultImage from "../../assets/images/default-logo.png";
+import Paginator from '../common/Paginator/Paginator';
 import styles from "./Users.module.css";
 
 const Users = (props) => {
@@ -11,7 +12,7 @@ const Users = (props) => {
                     <NavLink to={'/profile/' + el.id}>
                         <img src={el.photos.small || defaultImage} alt="logo" />
                     </NavLink>
-                    <button data-userid={el.id} disabled={props.followingInProgress.includes(el.id)} onClick={(e) => { props.toggleFollow(el.id, el.followed) }}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                    {props.isAuth && <button data-userid={el.id} disabled={props.followingInProgress.includes(el.id)} onClick={(e) => { props.toggleFollow(el.id, el.followed) }}>{el.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>}
                     <span> {el.name} </span>
                     <span> "el.location.city-el.location.country" </span>
                 </div >
@@ -21,21 +22,10 @@ const Users = (props) => {
         return users;
     }
 
-    let pagesCount = Math.ceil(props.totalCount / props.usersOnPage);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
     return (
         <div>
             <h2>USERS</h2>
-            <div className={styles.pagination}>
-                {pages.map((p, index) => {
-                    return <span key={index.toString()} className={(props.currentPage === p) ? styles.selectedPage : undefined} onClick={(e) => { props.onPageChanged(p) }}>{p}</span>
-                })
-                }
-            </div>
+            <Paginator totalCount={props.totalCount} currentPage={props.currentPage} usersOnPage={props.usersOnPage} onPageChanged={props.onPageChanged} />
             { _usersToJSX()}
         </div >
     )

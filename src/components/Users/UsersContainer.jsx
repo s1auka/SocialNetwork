@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getUsers, toggleFollow } from "../../redux/user-reducer";
 import Users from "./Users";
 import Preloader from '../common/Preloader/Preloader';
-import { getCurrentPage, getTotalUsersCount, checkIsFetching, followingInProgressStatus, getUsersSelector } from "../../redux/users-selector";
+import { getCurrentPage, getTotalUsersCount, checkIsFetching, followingInProgressStatus, getUsersSelector, checkAuth } from "../../redux/users-selector";
 
 class UsersContainer extends React.Component {
 
@@ -22,16 +22,18 @@ class UsersContainer extends React.Component {
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader /> : null}
-                <Users users={this.props.users}
-                    toggleFollow={this.toggleFollow}
-                    totalCount={this.props.totalCount}
-                    usersOnPage={this.props.usersOnPage}
-                    currentPage={this.props.currentPage}
-                    onPageChanged={this.onPageChanged}
-                    isFetching={this.props.isFetching}
-                    followingInProgress={this.props.followingInProgress}
-                />
+                {this.props.isFetching ? <Preloader /> :
+                    <Users users={this.props.users}
+                        toggleFollow={this.toggleFollow}
+                        totalCount={this.props.totalCount}
+                        usersOnPage={this.props.usersOnPage}
+                        currentPage={this.props.currentPage}
+                        onPageChanged={this.onPageChanged}
+                        isFetching={this.props.isFetching}
+                        followingInProgress={this.props.followingInProgress}
+                        isAuth={this.props.isAuth}
+                    />
+                }
             </>
 
         )
@@ -46,6 +48,7 @@ let mapStateToProps = (state) => {
         usersOnPage: state.usersInfo.AMT_USERS_ON_PAGE,
         isFetching: checkIsFetching(state),
         followingInProgress: followingInProgressStatus(state),
+        isAuth: checkAuth(state),
     }
 }
 
