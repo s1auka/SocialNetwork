@@ -5,6 +5,8 @@ import Paginator from '../common/Paginator/Paginator';
 import styles from "./Users.module.css";
 
 const Users = (props) => {
+    const AMOUNT_OF_PAGES_IN_PORTION = 10;
+
     let _usersToJSX = () => {
         let users = props.users.map((el, index) => {
             return (
@@ -25,7 +27,7 @@ const Users = (props) => {
     return (
         <div>
             <h2>USERS</h2>
-            <Paginator totalCount={props.totalCount} currentPage={props.currentPage} usersOnPage={props.usersOnPage} onPageChanged={props.onPageChanged} />
+            <Paginator totalCount={props.totalCount} currentPage={props.currentPage} usersOnPage={props.usersOnPage} onPageChanged={props.onPageChanged} pagesInPortion={AMOUNT_OF_PAGES_IN_PORTION} />
             { _usersToJSX()}
         </div >
     )

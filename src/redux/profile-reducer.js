@@ -3,6 +3,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const SET_PHOTO = "SET_PHOTO";
 
 const initialState = {
     oldMessages: [
@@ -32,6 +33,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 userProfile: { ...action.userProfile },
             }
+        case SET_PHOTO:
+            return {
+                ...state,
+                userProfile: { ...state.userProfile, photos: action.photos },
+            }
         default:
             break;
     }
@@ -42,6 +48,7 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = (message) => ({ type: ADD_POST, message });
 export const setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, userProfile });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const setUserPhoto = (photos) => ({ type: SET_PHOTO, photos });
 
 export const getProfile = (id) => (dispatch) => {
     profileAPI.getProfile(id)
@@ -62,6 +69,17 @@ export const updateStatus = (status) => (dispatch) => {
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(setStatus(status));
+            }
+
+        })
+}
+
+export const savePhoto = (photo) => (dispatch) => {
+    profileAPI.savePhoto(photo)
+        .then(data => {
+            if (data.resultCode === 0) {
+                //dispatch(setPhoto(status));
+                dispatch(setUserPhoto(data.data.photos));
             }
 
         })

@@ -2,13 +2,18 @@
     width: 100%;
     margin-bottom: 5px;
 }
+/* .foto {
+    float: left;
+} */
 
-.person::after {
+.foto::after {
     clear:both ;
+    content:"";
 }
 
-.foto {
-    float: left;
+
+
+.foto img{
     width: 100px;
     height: 100px;  
     margin-right: 5px;

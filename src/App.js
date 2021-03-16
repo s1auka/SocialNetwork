@@ -7,13 +7,16 @@ import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { initializeUser } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import { compose } from 'redux';
+import { withSuspense } from './hoc/withSuspense';
+
+
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 class App extends React.Component {
     componentDidMount() {
@@ -34,8 +37,7 @@ class App extends React.Component {
                     <Route path='/music' component={Music} />
                     <Route path='/auth/login' component={Login} />
                     <Route path='/users' render={() => <UsersContainer />} />
-                    <Route path='/settings' component={Settings} />
-
+                    <Route path='/settings' render={withSuspense(Settings)} />
                 </div>
             </ div>
         );
